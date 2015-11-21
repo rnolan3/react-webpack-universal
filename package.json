@@ -1,0 +1,60 @@
+{
+  "name": "muki",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
+    "start-dev": "better-npm-run start-dev",
+    "watch-client": "better-npm-run watch-client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "betterScripts": {
+    "start-dev": {
+      "command": "node ./bin/www",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "development",
+        "PORT": 3000
+      }
+    },
+    "watch-client": {
+      "command": "webpack --config ./webpack/dev.config.js --watch -d",
+      "env": {
+        "UV_THREADPOOL_SIZE": 100,
+        "NODE_PATH": "./src"
+      }
+    }
+  },
+  "author": "Robert Nolan",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.1.18",
+    "babel-core": "^6.2.1",
+    "babel-eslint": "^4.1.5",
+    "babel-plugin-transform-export-extensions": "^6.1.18",
+    "babel-polyfill": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "better-npm-run": "0.0.4",
+    "eslint": "^1.10.1",
+    "eslint-config-airbnb": "^1.0.0",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.10.0",
+    "piping": "^0.3.0",
+    "redbox-react": "^1.2.0",
+    "webpack": "^1.12.6",
+    "webpack-isomorphic-tools": "^2.2.18"
+  },
+  "dependencies": {
+    "compression": "^1.6.0",
+    "concurrently": "^1.0.0",
+    "express": "^4.13.3",
+    "favicon": "0.0.2",
+    "history": "^1.13.1",
+    "react": "^0.14.3",
+    "react-document-meta": "^2.0.0",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.0"
+  }
+}
