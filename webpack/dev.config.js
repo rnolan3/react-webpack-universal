@@ -1,3 +1,4 @@
+/* eslint strict: 0 no-console: 0 */
 'use strict';
 
 require('babel-polyfill');
@@ -5,10 +6,9 @@ require('babel-polyfill');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 const assetsPath = path.resolve(__dirname, '../static/dist');
 const host = (process.env.HOST || 'localhost');
-const port = parseInt(process.env.PORT, 10) + 1 || 3001;
+const port = parseInt(process.env.PORT, 10) || 3000;
 
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin =
@@ -67,7 +67,10 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel?' + JSON.stringify(babelLoaderQuery), 'eslint-loader']
+        loader: 'babel',
+        query: {
+          cacheDirectory: true
+        }
       },
       {
         test: /\.json$/,

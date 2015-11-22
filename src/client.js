@@ -1,9 +1,12 @@
 import 'babel-polyfill';
+
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { RoutingContext } from 'react-router';
+import { render } from 'react-dom';
+import { Router } from 'react-router';
+
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+import routes from './routes';
 
 const target = document.getElementById('app');
-const component = (<RoutingContext {...props } />);
 
-ReactDOM.render(component, target);
+render(<Router history={ createBrowserHistory() }>{ routes }</Router>, target);

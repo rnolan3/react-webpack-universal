@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import Express from 'express';
 import RedBox from 'redbox-react';
 import { renderToString } from 'react-dom/server';
@@ -18,7 +19,7 @@ app.use(compression());
 // app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
-app.use((req, res) => {
+app.get('*', (req, res) => {
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
@@ -32,9 +33,12 @@ app.use((req, res) => {
       } else if (redirect) {
         res.redirect(redirect.pathname + redirect.search);
       } else if (props) {
+        const assets = webpackIsomorphicTools.assets();
         const component = <RoutingContext {...props } />;
-        res.send('<!doctype html>\n' +
-          renderToString(<Html component={ component }/>));
+
+        res.send('<!doctype html>\n' + renderToString(<Html
+            assets={ assets }
+            component={ component }/>));
       } else {
         res.status(404).send('Not found');
       }
